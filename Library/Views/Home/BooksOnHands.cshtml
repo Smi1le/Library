@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "На руках";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Книги на руках</h3>
+    <table id="single">
+        <tr>
+            <td><p>Название книги</p></td>
+            <td><p>Количество книг на руках</p></td>
+            <td></td>
+        </tr>
+        @foreach (var b in ViewBag.Lib)
+        {
+            <tr>
+                <td><p>@b.Book_title</p></td>
+                <td><p>@b.Number_copies_on_hands</p></td>
+            </tr>
+        }
+    </table>
+</div>

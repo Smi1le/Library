@@ -1,0 +1,7 @@
+2017-01-23 12:14:58.4487|INFO|Library.MvcApplication|Application Start
+2017-01-23 12:14:59.3823|INFO|Library.MvcApplication|Application Init
+2017-01-23 12:14:59.4904|INFO|Library.MvcApplication|Application Init
+2017-01-23 12:24:03.6778|INFO|Library.App_Start.PreStartApp|Application PreStart
+2017-01-23 12:24:08.4359|INFO|Library.MvcApplication|Application Start
+2017-01-23 12:24:09.5177|INFO|Library.MvcApplication|Application Init
+2017-01-23 12:24:09.6408|INFO|Library.MvcApplication|Application Init

@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Insert part2</title>
+</head>
+<body>
+    <div>
+        <h3>Insert part2</h3>
+        <form method="post" action="">
+            <table>
+                <tr>
+                    @if (ViewBag.tableName == "employee")
+                    {
+                        <td><input type="text" id="txt" name="dep_name" value="Department" /> </td>
+                        <td><input type="text" id="txt" name="FIO_name" value="FIO" /> </td>
+                        <td><input type="text" id="txt" name="phone_number" value="Phone" /> </td>
+                    }
+                    @if (ViewBag.tableName == "buy orders")
+                    {
+                        <td><input type="text" id="txt" name="ordered_name" value="name ordered" /> </td>
+                        <td><input type="text" id="txt" name="book_title" value="book title" /> </td>
+                    }
+                    @if (ViewBag.tableName == "reading orders")
+                    {
+                        <td><input type="text" id="txt" name="ordered_name" value="name ordered" /> </td>
+                        <td><input type="text" id="txt" name="book_title" value="book title" /> </td>
+                    }
+                    @if (ViewBag.tableName == "books")
+                    {
+                        <td><input type="text" id="txt" name="title" value="book title" /> </td>
+                        <td><input type="text" id="txt" name="desc" value="short description" /> </td>
+                        <td><input type="text" id="txt" name="hands" value="on hands" /> </td>
+                        <td><input type="text" id="txt" name="num_cop" value="number copies" /> </td>
+                    }
+                </tr>
+                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

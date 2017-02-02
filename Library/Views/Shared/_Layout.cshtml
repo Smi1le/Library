@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Библиотека</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style type="text/css">
+        #header {
+            padding: 15px;
+            background: #c8c8c8;
+            color: #585858;
+            font-size: 40px;
+        }
+
+        h3 {
+            cursor: pointer;
+        }
+
+        #page{
+            vertical-align:top;
+            padding-left: 15px;
+            padding-top: 15px;
+        }
+        #box{
+            vertical-align:top;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
+                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+
+    </div>
+    <div class="container body-content">
+        <div id="header">
+            <h2>Библиотека</h2>
+        </div>
+        <div class="object">
+            <div class="left_col">
+                <div id="box">
+                    <h3><span>Книги</span></h3>
+                    <ul>
+                        <li><a href="/Home/Buy">Покупка книги</a></li>
+                        <li><a href="/Home/Read">Читать книгу</a></li>
+                        <li><a href="/Home/Return">Вернуть книгу в библиотеку</a></li>
+                        <!--<li><a href="/Home/Read">Оформить заказ на прочтение книги</a></li>-->
+                    </ul>
+                </div>
+                <div id="box">
+                    <h3><span>Отчеты</span></h3>
+                    <ul>
+                        <li><a href="/Home/BooksOnHands">Посмотреть список книг на руках</a></li>
+                        <!--<li><a href="/Home/ListBooks">Посмотреть все книги</a  ></li>-->
+                        <li><a href="/Home/Rating">Посмотреть рейтинг</a></li>
+                    </ul>
+                </div>
+                <div id="box">
+                    <h3><span>Работа с БД</span></h3>
+                    <ul>
+                        <li><a href="/Home/WorkWithBD?table=books">Книги</a></li>
+                        <li><a href="/Home/WorkWithBD?table=buy">Заказы на покупку</a></li>
+                        <li><a href="/Home/WorkWithBD?table=reading">Заказа на чтение</a></li>
+                        <li><a href="/Home/WorkWithBD?table=employees">Работники</a></li>
+                        <li><a href="/Home/WorkWithBD?table=issued">Выданные книги</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="workPlace">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year – PS Group</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

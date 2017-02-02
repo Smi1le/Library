@@ -1,0 +1,116 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.header{
+    padding: 15px;
+    background: #c8c8c8;
+    color: #585858;
+    font-size: 40px;
+    width: 100%;
+    height: 15%;
+    margin: 15px;
+}
+.main{
+    color: #585858;
+    background: #ededed;
+    font-size: 15px;
+    padding: 8px;
+    width: 21.7%;
+    float: left;
+    margin: 0 0 0 4%;
+}
+
+.left_col{
+    vertical-align:top;
+    display: table-cell;
+    width: 19%;
+}
+
+.workPlace{
+    display:table-cell;
+    padding-left: 15px;
+    padding-top: 15px;
+    width: 80%;
+}
+
+.object {
+    display: table-row;
+}
+
+.center-block{
+    background: #e6e6e6;
+}
+
+.result-table{
+    width:100%;
+}
+
+.update_button{
+    width: 80px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.00);
+    color: #5c619b;
+    border-radius:5px;
+    float:right;
+}
+
+.delete_button{
+    width: 80px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.00);
+    color: #5c619b;
+    border-radius:5px;
+    float:right;
+}
+
+td{
+    border-width: 0px;
+    border:none none;
+}
+
+#single{
+    border-collapse:collapse;
+    border-color:inherit;
+    width: 100%;
+}
+
+#single tr:nth-child(2n){
+    background: #b9b9b9;
+}
+
+.form{
+    padding-top:10%;
+}
+
+.order{
+    padding: 10px;
+    background: #8899ff;
+    border: 2px solid blue;
+}
+
+.update_form{
+    display:table-row;
+}
+

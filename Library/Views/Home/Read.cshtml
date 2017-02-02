@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Заказ на покупку книги";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<div>
+    <h2>Форма оформления заказа на прочтение книги</h2>
+    <form method="post" action="">
+        <table id="single">
+            <tr>
+                @foreach (var el in ViewBag.NamesList)
+                {
+                    <td>@el</td>;
+                }
+                <td></td>
+                <td></td>
+            </tr>
+            @foreach (var element in ViewBag.Table)
+            {
+                <tr>
+                    <td><p>@element.Book_title</p></td>
+                    <td><p>@element.Description</p></td>
+                    <td><p>@element.Number_copies_on_hands</p></td>
+                    <td><a href="">Читать</a></td>
+                    <td><a href="">Заказать книгу</a></td>
+                </tr>
+            }
+        </table>
+    </form>
+</div>

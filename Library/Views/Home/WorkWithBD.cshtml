@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Работа с базой данных";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<div>
+    <form method="post" action="">
+        <input type="hidden" value="@ViewBag.TableName" name="table" />
+        <div class="center-block">
+            <table id="single">
+                <tr>
+                    @foreach (var el in ViewBag.NamesList)
+                    {
+                        <td>@el</td>;
+                    }
+                    <td></td>
+                    <td></td>
+                </tr>
+                @if (ViewBag.TableName == "books")
+                {
+                    foreach (var element in ViewBag.Table)
+                    {
+                        <tr>
+                            <td><p>@element.Id</p></td>
+                            <td><p>@element.Book_title</p></td>
+                            <td><p>@element.Short_description</p></td>
+                            <td><p>@element.Number_copies</p></td>
+                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href='/Home/Update?table=books&Id=@element.Id'"/></td>
+                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id'"/></td>
+                        </tr>
+                    }
+                }
+                @if (ViewBag.TableName == "buy")
+                {
+                    foreach (var element in ViewBag.Table)
+                    {
+                        <tr>
+                            <td><p>@element.Id</p></td>
+                            <td><p>@element.Id_employee</p></td>
+                            <td><p>@element.Id_book</p></td>
+                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=buy&Id=@element.Id'"/></td>
+                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=buy&Id=@element.Id'"/></td>
+                        </tr>
+                    }
+                }
+                @if (ViewBag.TableName == "reading")
+                {
+                    foreach (var element in ViewBag.Table)
+                    {
+                        <tr>
+                            <td><p>@element.Id</p></td>
+                            <td><p>@element.Id_book</p></td>
+                            <td><p>@element.Id_employee</p></td>
+                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=reading&Id=@element.Id'"/></td>
+                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=reading&Id=@element.Id'"/></td>
+                        </tr>
+                    }
+                }
+                @if (ViewBag.TableName == "issued")
+                {
+                    foreach (var element in ViewBag.Table)
+                    {
+                        <tr>
+                            <td><p>@element.Id</p></td>
+                            <td><p>@element.Id_book</p></td>
+                            <td><p>@element.Id_employee</p></td>
+                            <td><p>@element.Deadline</p></td>
+                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=issued&Id=@element.Id'"/></td>
+                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@element.Id'"/></td>
+                        </tr>
+                    }
+                }
+                @if (ViewBag.TableName == "employees")
+                {
+                    foreach (var element in ViewBag.Table)
+                    {
+                        <tr>
+                            <td><p>@element.Id</p></td>
+                            <td><p>@element.FIO</p></td>
+                            <td><p>@element.Phone</p></td>
+                            <td><p>@element.Department</p></td>
+                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=employees&Id=@element.Id'"/></td>
+                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=employees&Id=@element.Id'"/></td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </form>
+</div>

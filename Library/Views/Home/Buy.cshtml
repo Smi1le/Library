@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Заказ на покупку книги";
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+}
+
+<div>
+    <h3>Форма оформления заказа на покупку</h3>
+    <form method="post" action="">
+        <table class="form">
+            <tr>
+                <td><p>Введите свое имя</p></td>
+                <td><input type="text" id="txt" name="ordered_name"/> </td>
+            </tr>
+            <tr>
+                <td><p>Введите название книги</p></td>
+                <td>
+                    <input type="text" name="book_name" />
+                </td>
+            </tr>
+            
+        </table>
+       <input type="submit" value="Отправить"/>
+    </form>
+</div>

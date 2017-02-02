@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Update Record";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    <h3>Update</h3>
+    <form method="post" action="">
+        <div class="update_form">
+            <div><input type="hidden" id="txt" name="table_name" value="@ViewBag.TableName" /> </div>
+            @if (ViewBag.TableName == "employees")
+            {
+                <div><input type="hidden" id="txt" name="Id" value="@ViewBag.Element.Id" /> </div>
+                <div><input type="text" id="txt" name="FIO" value="@ViewBag.Element.FIO" /> </div>
+                <div><input type="text" id="txt" name="Phone" value="@ViewBag.Element.Phone" /> </div>
+                <div><input type="text" id="txt" name="Department" value="@ViewBag.Element.Department" /> </div>
+            }
+            @if (ViewBag.TableName == "buy")
+            {
+                <div><input type="hidden" id="txt" name="Id" value="@ViewBag.Element.Id" /> </div>
+                <div><input type="text" id="txt" name="Id_employee" value="@ViewBag.Element.Id_employee" /> </div>
+                <div><input type="text" id="txt" name="Id_book" value="@ViewBag.Element.Id_book" /> </div>
+            }
+            @if (ViewBag.TableName == "reading")
+            {
+                <div><input type="hidden" id="txt" name="Id" value="@ViewBag.Element.Id" /> </div>
+                <div><input type="text" id="txt" name="Id_book" value="@ViewBag.Element.Id_book" /> </div>
+                <div><input type="text" id="txt" name="Id_employee" value="@ViewBag.Element.Id_employee" /> </div>
+            }
+            @if (ViewBag.TableName == "books")
+            {
+                <div><input type="hidden" id="txt" name="Id" value="@ViewBag.Element.Id" /> </div>
+                <div><input type="text" id="txt" name="Book_title" value="@ViewBag.Element.Book_title" /> </div>
+                <div><input type="text" id="txt" name="Short_description" value="@ViewBag.Element.Short_description" /> </div>
+                <div><input type="text" id="txt" name="Number_copies" value="@ViewBag.Element.Number_copies" /> </div>
+            }
+            @if (ViewBag.TableName == "issued")
+            {
+                <div><input type="hidden" id="txt" name="Id" value="@ViewBag.Element.Id" /> </div>
+                <div><input type="text" id="txt" name="Id_book" value="@ViewBag.Element.Id_book" /> </div>
+                <div><input type="text" id="txt" name="Id_employee" value="@ViewBag.Element.Id_employee" /> </div>
+                <div><input type="text" id="txt" name="Deadline" value="@ViewBag.Element.Deadline" /> </div>
+            }
+        </div>
+    </form>
+</div>
