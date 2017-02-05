@@ -366,9 +366,8 @@ namespace Library.Models
             }
         }
 
-        static public string Update(Library.Controllers.HomeController controller)
+        static public string Update(string tableName, Library.Controllers.HomeController controller)
         {
-            var tableName = controller.Request.Params["table_name"];
             switch (tableName)
             {
                 case "buy":
@@ -397,9 +396,8 @@ namespace Library.Models
             }
         }
 
-        static public string Insert(Library.Controllers.HomeController controller)
+        static public string Insert(string tableName, Library.Controllers.HomeController controller)
         {
-            var tableName = controller.Request.Params["table"];
             switch (tableName)
             {
                 case "buy":

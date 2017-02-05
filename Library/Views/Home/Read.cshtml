@@ -3,9 +3,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml"; ;
 }
 
-<div>
+<!DOCTYPE html>
+<form method="post" action="">
     <h2>Форма оформления заказа на прочтение книги</h2>
-    <form method="post" action="">
+    <div class="center-block">
         <table id="single">
             <tr>
                 @foreach (var el in ViewBag.NamesList)
@@ -21,10 +22,10 @@
                     <td><p>@element.Book_title</p></td>
                     <td><p>@element.Description</p></td>
                     <td><p>@element.Number_copies_on_hands</p></td>
-                    <td><a href="">Читать</a></td>
-                    <td><a href="">Заказать книгу</a></td>
+                    <td><a href="/Home/ReadBook?id=@element.Id&type=read">Читать</a></td>
+                    <td><a href="/Home/ReadBook?id=@element.Id&type=order">Заказать книгу</a></td>
                 </tr>
             }
         </table>
-    </form>
-</div>
+    </div>
+</form>

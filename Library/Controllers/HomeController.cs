@@ -9,9 +9,6 @@ using MySql.Data.MySqlClient;
 
 namespace Library.Controllers
 {
-   
-
-
     public class HomeController : Controller
     {
         DBManager manager = new DBManager();
@@ -38,19 +35,10 @@ namespace Library.Controllers
 
             return View();
         }
-       /* [HttpPost]
-        public string BooksOnHands(string ex)
-        {
-            return "";
-        }*/
 
         [HttpGet]
         public ActionResult ListBooks()
         {
-            /*ssued_book issuedBook = new Issued_book { Id_book = 2, Id_employee = 4, Deadline = DateTime.Now.Date.AddDays(15) };
-            manager.GetContext().IssuedBooks.Add(issuedBook);
-            manager.GetContext().SaveChanges();*/
-
             IEnumerable<Book> lib = manager.GetContext().Lib;
             List<BookForPage> books = new List<BookForPage>();
             int number = 0;
@@ -75,20 +63,35 @@ namespace Library.Controllers
         }
 
         [HttpGet]
-        public ActionResult ReadBook(int id)
+        public ActionResult ReadBook(int id, string type)
         {
             ViewBag.BookId = id;
+            ViewBag.Employees = manager.GetContext().Employees;
             return View();
         }
 
         [HttpPost]
-        public string ReadBook(Reading_Order order)
+        public void ReadBook()
         {
-            var name = string.IsNullOrEmpty(Request.Params["Person"]) ? "" : Request.Params["Person"];
-            Employee employee = manager.GetContext().Employees.Where(s => s.FIO == name).FirstOrDefault<Employee>();
-            //order 
+            try
+            {
+                var type = Request.Params["Type"];
+                var name = Request.Params["selection"];
+                var idBook = Request.Params["Id_book"];
+                string message = "";
+                Employee employee = manager.GetContext().Employees.Where(s => s.FIO == name).FirstOrDefault();
 
-            return name;
+                if (type == "read,")
+                    message = InsertHelper.FromIssued(Convert.ToInt32(idBook), employee.Id, DateTime.Now.AddDays(15).ToString());
+                else if (type == "order,")
+                    message = InsertHelper.FromReadingOrder(employee.Id, Convert.ToInt32(idBook));
+
+                Response.Redirect("/Home/Read?message=" + message);
+            }
+            catch(Exception ex)
+            {
+                Response.Redirect("/Home/Read?message=" + ex.Message);
+            }
         }
 
         [HttpGet]
@@ -102,7 +105,7 @@ namespace Library.Controllers
         {
             var orderedName = string.IsNullOrEmpty(Request.Params["ordered_name"]) ? "" : Request.Params["ordered_name"];
             var bookName = string.IsNullOrEmpty(Request.Params["book_name"]) ? "" : Request.Params["book_name"];
-            manager.Insert<Book>(new Book { Book_title = bookName, Short_description = "", Number_copies = 1 });
+            manager.Insert<Book>(new Book { Book_title = bookName, Short_description = "", Number_copies = 0 });
             order.Id_book = manager.GetIdElement(TablesNames.Books, bookName);
             order.Id_employee = manager.GetIdElement(TablesNames.Employees, orderedName);
             
@@ -111,8 +114,9 @@ namespace Library.Controllers
         }
 
         [HttpGet]
-        public ActionResult Read()
+        public ActionResult Read(string message)
         {
+            ViewBag.Message = message;
             ViewBag.NamesList = new List<string> { "Название книги", "Краткое описание", "Количество свободных книг" };
             ViewBag.Table = LibApp.GetListAvailableBooks();
 
@@ -155,10 +159,8 @@ namespace Library.Controllers
         public void Update()
         {
             var tableName = string.IsNullOrEmpty(Request.Params["table_name"]) ? "" : Request.Params["table_name"];
-            string message = LibApp.Update(this);
+            string message = LibApp.Update(tableName, this);
             Response.Redirect("/Home/WorkWithBD?table=" + tableName + "&message=" + message);
-
-
         }
 
         [HttpGet]
@@ -174,123 +176,12 @@ namespace Library.Controllers
             Response.Redirect("/Home/Insert2?tableName=" + tableName);
         }
 
-        /*[HttpGet]
-        public ActionResult Insert2(string tableName)
-        {
-            ViewBag.tableName = tableName;
-            return View();
-        }
-
-        [HttpPost]
-        public string Insert2()
-        {
-            string tableName = Request.QueryString["tableName"];
-            string answer = "";
-            if (tableName == "employee")
-            {
-                var department = string.IsNullOrEmpty(Request.Params["dep_name"]) ? "" : Request.Params["dep_name"];
-                var FIO = string.IsNullOrEmpty(Request.Params["FIO_name"]) ? "" : Request.Params["FIO_name"];
-                var phone = string.IsNullOrEmpty(Request.Params["phone_number"]) ? "" : Request.Params["phone_number"];
-                answer = InsertHelper.FromEmployee(department, FIO, phone);
-            }
-            else if (tableName == "buy orders")
-            {
-                var ordered_name = string.IsNullOrEmpty(Request.Params["ordered_name"]) ? "" : Request.Params["ordered_name"];
-                var book_title = string.IsNullOrEmpty(Request.Params["book_title"]) ? "" : Request.Params["book_title"];
-                answer = InsertHelper.FromBuyOrder(ordered_name, book_title);
-            }
-            else if (tableName == "reading orders")
-            {
-                var orderedName = string.IsNullOrEmpty(Request.Params["ordered_name"]) ? "" : Request.Params["ordered_name"];
-                var bookTitle = string.IsNullOrEmpty(Request.Params["book_title"]) ? "" : Request.Params["book_title"];
-                answer = InsertHelper.FromReadingOrder(orderedName, bookTitle);
-            }
-            else if (tableName == "books")
-            {
-                var title = string.IsNullOrEmpty(Request.Params["title"]) ? "" : Request.Params["title"];
-                var desc = string.IsNullOrEmpty(Request.Params["desc"]) ? "" : Request.Params["desc"];
-                var numCop = string.IsNullOrEmpty(Request.Params["num_cop"]) ? "" : Request.Params["num_cop"];
-                answer = InsertHelper.FromBook(title, desc, numCop);
-            }
-            return answer;
-        }*/
-
-
-       /* [HttpGet]
-        public ActionResult UpdateTwo(string table, string update)
-        {
-            ViewBag.tableName = table;
-            ViewBag.updateName = update;
-            return View();
-        }
-
-        [HttpPost]
-        public string UpdateTwo(string ex)
-        {
-            string tableName = Request.QueryString["table"];
-            string updateName = Request.QueryString["update"];
-            string answer = "";
-            if (tableName == "employee")
-            {
-                var department = string.IsNullOrEmpty(Request.Params["dep_name"]) ? "" : Request.Params["dep_name"];
-                var FIO = string.IsNullOrEmpty(Request.Params["FIO_name"]) ? "" : Request.Params["FIO_name"];
-                var phone = string.IsNullOrEmpty(Request.Params["phone_number"]) ? "" : Request.Params["phone_number"];
-                answer = UpdateHelper.FromEmployee(department, FIO, phone, updateName);
-            }
-            else if (tableName == "buy orders")
-            {
-                var ordered_name = string.IsNullOrEmpty(Request.Params["ordered_name"]) ? "" : Request.Params["ordered_name"];
-                var book_title = string.IsNullOrEmpty(Request.Params["book_title"]) ? "" : Request.Params["book_title"];
-                answer = UpdateHelper.FromBuyOrder(ordered_name, book_title, updateName);
-            }
-            else if (tableName == "reading orders")
-            {
-                var orderedName = string.IsNullOrEmpty(Request.Params["ordered_name"]) ? "" : Request.Params["ordered_name"];
-                var bookTitle = string.IsNullOrEmpty(Request.Params["book_title"]) ? "" : Request.Params["book_title"];
-                answer = UpdateHelper.FromReadingOrder(orderedName, bookTitle, updateName);
-            }
-            else if (tableName == "books")
-            {
-                var title = string.IsNullOrEmpty(Request.Params["title"]) ? "" : Request.Params["title"];
-                var desc = string.IsNullOrEmpty(Request.Params["desc"]) ? "" : Request.Params["desc"];
-                var numCop = string.IsNullOrEmpty(Request.Params["num_cop"]) ? "" : Request.Params["num_cop"];
-                answer = UpdateHelper.FromBook(title, desc, numCop, updateName);
-            }
-            return answer;
-        }*/
-
         [HttpGet]
         public ActionResult Delete(string table, int Id)
         {
             string message = LibApp.Delete(this, table, Id);
             Response.Redirect("/Home/WorkWithBD?table=" + table + "&message=" + message);
             return View();
-        }
-
-        [HttpPost]
-        public void Delete(string ex = "")
-        {
-            /*var tableName = string.IsNullOrEmpty(Request.Params["table_name"]) ? "" : Request.Params["table_name"];
-            var firstSection = string.IsNullOrEmpty(Request.Params["first_section"]) ? "" : Request.Params["first_section"];
-            var secondSection = string.IsNullOrEmpty(Request.Params["second_section"]) ? "" : Request.Params["second_section"];
-            string answer = "";
-            if (tableName == "employee")
-            {
-                answer = DeleteHelper.FromEmployee(firstSection == "" ? secondSection : firstSection);
-            }
-            else if (tableName == "buy orders")
-            {
-                answer = DeleteHelper.FromBuyOrder(firstSection == "" ? secondSection : firstSection);
-            }
-            else if (tableName == "reading orders")
-            {
-                answer = DeleteHelper.FromReadingOrder(firstSection, secondSection);
-            }
-            else if (tableName == "books")
-            {
-                answer = DeleteHelper.FromBook(firstSection == "" ? secondSection : firstSection);
-            }*/
-
         }
 
         [HttpGet]
@@ -310,18 +201,9 @@ namespace Library.Controllers
             if (Request.Form["add_record"] == "Добавить")
             {
                 var tableName = Request.Params["table"];
-                string message = LibApp.Insert(this);
+                string message = LibApp.Insert(tableName, this);
                 Response.Redirect("/Home/WorkWithBD?table=" + tableName + "&message=" + message);
             }
-            else if (Request.Form["delete"] == "Удалить")
-            {
-                var Id = ViewBag.ID;
-                string mes = "";
-            }
-            /*else if (Request.Form["update"] == "Изменить")
-            {
-
-            }*/
 
         }
 
