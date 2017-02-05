@@ -155,7 +155,8 @@ namespace Library.Controllers
         public void Update()
         {
             var tableName = string.IsNullOrEmpty(Request.Params["table_name"]) ? "" : Request.Params["table_name"];
-            Response.Redirect("/Home/UpdateTwo?table=" + tableName + "&element=");
+            string message = LibApp.Update(this);
+            Response.Redirect("/Home/WorkWithBD?table=" + tableName + "&message=" + message);
 
 
         }
@@ -173,7 +174,7 @@ namespace Library.Controllers
             Response.Redirect("/Home/Insert2?tableName=" + tableName);
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult Insert2(string tableName)
         {
             ViewBag.tableName = tableName;
@@ -212,10 +213,10 @@ namespace Library.Controllers
                 answer = InsertHelper.FromBook(title, desc, numCop);
             }
             return answer;
-        }
+        }*/
 
 
-        [HttpGet]
+       /* [HttpGet]
         public ActionResult UpdateTwo(string table, string update)
         {
             ViewBag.tableName = table;
@@ -256,18 +257,20 @@ namespace Library.Controllers
                 answer = UpdateHelper.FromBook(title, desc, numCop, updateName);
             }
             return answer;
-        }
+        }*/
 
         [HttpGet]
-        public ActionResult Delete()
+        public ActionResult Delete(string table, int Id)
         {
+            string message = LibApp.Delete(this, table, Id);
+            Response.Redirect("/Home/WorkWithBD?table=" + table + "&message=" + message);
             return View();
         }
 
         [HttpPost]
         public void Delete(string ex = "")
         {
-            var tableName = string.IsNullOrEmpty(Request.Params["table_name"]) ? "" : Request.Params["table_name"];
+            /*var tableName = string.IsNullOrEmpty(Request.Params["table_name"]) ? "" : Request.Params["table_name"];
             var firstSection = string.IsNullOrEmpty(Request.Params["first_section"]) ? "" : Request.Params["first_section"];
             var secondSection = string.IsNullOrEmpty(Request.Params["second_section"]) ? "" : Request.Params["second_section"];
             string answer = "";
@@ -286,14 +289,15 @@ namespace Library.Controllers
             else if (tableName == "books")
             {
                 answer = DeleteHelper.FromBook(firstSection == "" ? secondSection : firstSection);
-            }
+            }*/
 
         }
 
         [HttpGet]
-        public ActionResult WorkWithBD(string table)
+        public ActionResult WorkWithBD(string table, string message)
         {
             ViewBag.NamesList = LibApp.GetListNamesTables(table);
+            ViewBag.Message = message;
             ViewBag.Table = LibApp.GetTable(table);
             ViewBag.TableName = table;
             return View();
@@ -302,6 +306,22 @@ namespace Library.Controllers
         [HttpPost]
         public void WorkWithBD()
         {
+            var str = Request.Form["add_record"];
+            if (Request.Form["add_record"] == "Добавить")
+            {
+                var tableName = Request.Params["table"];
+                string message = LibApp.Insert(this);
+                Response.Redirect("/Home/WorkWithBD?table=" + tableName + "&message=" + message);
+            }
+            else if (Request.Form["delete"] == "Удалить")
+            {
+                var Id = ViewBag.ID;
+                string mes = "";
+            }
+            /*else if (Request.Form["update"] == "Изменить")
+            {
+
+            }*/
 
         }
 

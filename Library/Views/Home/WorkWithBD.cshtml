@@ -4,88 +4,203 @@
 }
 
 <!DOCTYPE html>
-<div>
-    <form method="post" action="">
-        <input type="hidden" value="@ViewBag.TableName" name="table" />
-        <div class="center-block">
-            <table id="single">
-                <tr>
-                    @foreach (var el in ViewBag.NamesList)
-                    {
-                        <td>@el</td>;
-                    }
-                    <td></td>
-                    <td></td>
-                </tr>
-                @if (ViewBag.TableName == "books")
+<form method="post" action="">
+    <div id="message"><p>@ViewBag.Message</p></div>
+    <div class="center-block">
+        <table id="single">
+            <tr>
+                @foreach (var el in ViewBag.NamesList)
                 {
-                    foreach (var element in ViewBag.Table)
-                    {
-                        <tr>
-                            <td><p>@element.Id</p></td>
-                            <td><p>@element.Book_title</p></td>
-                            <td><p>@element.Short_description</p></td>
-                            <td><p>@element.Number_copies</p></td>
-                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href='/Home/Update?table=books&Id=@element.Id'"/></td>
-                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id'"/></td>
-                        </tr>
-                    }
+                    <td>@el</td>;
                 }
-                @if (ViewBag.TableName == "buy")
+                <td></td>
+                <td></td>
+            </tr>
+            @if (ViewBag.TableName == "books")
+            {
+                foreach (var element in ViewBag.Table)
                 {
-                    foreach (var element in ViewBag.Table)
-                    {
-                        <tr>
-                            <td><p>@element.Id</p></td>
-                            <td><p>@element.Id_employee</p></td>
-                            <td><p>@element.Id_book</p></td>
-                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=buy&Id=@element.Id'"/></td>
-                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=buy&Id=@element.Id'"/></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td><p>@element.Id</p></td>
+                        <td><p>@element.Book_title</p></td>
+                        <td><p>@element.Short_description</p></td>
+                        <td><p>@element.Number_copies</p></td>
+                        <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href='/Home/Update?table=books&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id'"/></td>
+                    </tr>
                 }
-                @if (ViewBag.TableName == "reading")
+            }
+            @if (ViewBag.TableName == "buy")
+            {
+                foreach (var element in ViewBag.Table)
                 {
-                    foreach (var element in ViewBag.Table)
-                    {
-                        <tr>
-                            <td><p>@element.Id</p></td>
-                            <td><p>@element.Id_book</p></td>
-                            <td><p>@element.Id_employee</p></td>
-                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=reading&Id=@element.Id'"/></td>
-                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=reading&Id=@element.Id'"/></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td><p>@element.Id</p></td>
+                        <td><p>@element.Id_employee</p></td>
+                        <td><p>@element.Id_book</p></td>
+                        <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=buy&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=buy&Id=@element.Id'"/></td>
+                    </tr>
                 }
-                @if (ViewBag.TableName == "issued")
+            }
+            @if (ViewBag.TableName == "reading")
+            {
+                foreach (var element in ViewBag.Table)
                 {
-                    foreach (var element in ViewBag.Table)
-                    {
-                        <tr>
-                            <td><p>@element.Id</p></td>
-                            <td><p>@element.Id_book</p></td>
-                            <td><p>@element.Id_employee</p></td>
-                            <td><p>@element.Deadline</p></td>
-                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=issued&Id=@element.Id'"/></td>
-                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@element.Id'"/></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td><p>@element.Id</p></td>
+                        <td><p>@element.Id_book</p></td>
+                        <td><p>@element.Id_employee</p></td>
+                        <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=reading&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=reading&Id=@element.Id'"/></td>
+                    </tr>
                 }
-                @if (ViewBag.TableName == "employees")
+            }
+            @if (ViewBag.TableName == "issued")
+            {
+                foreach (var element in ViewBag.Table)
                 {
-                    foreach (var element in ViewBag.Table)
-                    {
-                        <tr>
-                            <td><p>@element.Id</p></td>
-                            <td><p>@element.FIO</p></td>
-                            <td><p>@element.Phone</p></td>
-                            <td><p>@element.Department</p></td>
-                            <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=employees&Id=@element.Id'"/></td>
-                            <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=employees&Id=@element.Id'"/></td>
-                        </tr>
-                    }
+                    <tr>
+                        <td><p>@element.Id</p></td>
+                        <td><p>@element.Id_book</p></td>
+                        <td><p>@element.Id_employee</p></td>
+                        <td><p>@element.Deadline</p></td>
+                        <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=issued&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@element.Id'"/></td>
+                    </tr>
                 }
-            </table>
-        </div>
-    </form>
-</div>
+            }
+            @if (ViewBag.TableName == "employees")
+            {
+                foreach (var element in ViewBag.Table)
+                {
+                    <tr>
+                        <td><p>@element.Id</p></td>
+                        <td><p>@element.FIO</p></td>
+                        <td><p>@element.Phone</p></td>
+                        <td><p>@element.Department</p></td>
+                        <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=employees&Id=@element.Id'" /></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=employees&Id=@element.Id'"/></td>
+                    </tr>
+                }
+            }
+        </table>
+
+        @if (ViewBag.TableName == "books")
+        {
+            <div class="add_form">
+                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                <div class="add_cell">
+                    <input type="text" value="Book title" name="Book_title" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Short description" name="Short_description" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Number copies" name="Number_copies" />
+                </div>
+                <div class="add_button">
+                    <input type="submit" value="Добавить" name="add_record"/>
+                </div>
+
+            </div>
+        }
+        @if (ViewBag.TableName == "employees")
+        {
+            <div class="add_form">
+                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                <div class="add_cell">
+                    <input type="text" value="FIO" name="FIO" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Phone" name="Phone" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Department" name="Department" />
+                </div>
+                <div class="add_button">
+                    <input type="submit" value="Добавить" name="add_record" />
+                </div>
+
+            </div>
+        }
+        @if (ViewBag.TableName == "issued")
+        {
+            <div class="add_form">
+                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                <div class="add_cell">
+                    <input type="text" value="Id_book" name="Id_book" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Id_employee" name="Id_employee" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Deadline" name="Deadline" />
+                </div>
+                <div class="add_button">
+                    <input type="submit" value="Добавить" name="add_record" />
+                </div>
+
+            </div>
+        }
+        @if (ViewBag.TableName == "reading")
+        {
+            <div class="add_form">
+                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                <div class="add_cell">
+                    <input type="text" value="Id_book" name="Id_book" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Id_employee" name="Id_employee" />
+                </div>
+                <div class="add_button">
+                    <input type="submit" value="Добавить" name="add_record" />
+                </div>
+
+            </div>
+        }
+        @if (ViewBag.TableName == "buy")
+        {
+            <div class="add_form">
+                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                <div class="add_cell">
+                    <input type="text" value="Id_employee" name="Id_employee" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Id_book" name="Id_book"/>
+                </div>
+                <div class="add_button">
+                    <input type="submit" value="Добавить" name="add_record" />
+                </div>
+
+            </div>
+        }
+        <!--<div class="add_form">
+            <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+            <div class="add_cell">
+                <input type="text" value="FIO" name="add" />
+            </div>
+            <div class="add_cell">
+                <input type="text" value="Phone" name="add" />
+            </div>
+            <div class="add_cell">
+                <input type="text" value="Department" name="add" />
+            </div>
+            <div class="add_button">
+                <input type="submit" value="Добавить" name="add_record" />
+            </div>
+
+        </div>-->
+
+       
+    </div>
+
+</form>
+<script>
+    SetType(type)
+    {
+        var button = document.createElement("INPUT");
+        button.name = "button_work_with_db";
+        button.value = type;
+    }
+</script>

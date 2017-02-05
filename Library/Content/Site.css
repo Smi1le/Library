@@ -59,6 +59,13 @@ textarea {
     display: table-row;
 }
 
+#message{
+    background: #ededed;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
 .center-block{
     background: #e6e6e6;
 }
@@ -112,5 +119,35 @@ td{
 
 .update_form{
     display:table-row;
+    width: 100%;
 }
+
+.update_form_cell{
+    display: table-cell;
+    width: 100%;
+    padding-left: 50px;
+}
+.update_form_button{
+    float:right;
+    display: table-cell;
+}
+
+.add_form{
+    width: 150%;
+    padding-top: 100px;
+    border:1px groove #5c619b;
+    border-radius: 8px;
+    display:table-row;
+}
+
+.add_button{
+}
+
+.add_cell{
+    padding-top: 5px;
+    display:table-cell;
+}
+
+
+
 

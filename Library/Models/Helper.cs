@@ -9,65 +9,107 @@ namespace Library.Models
 {
     class UpdateHelper
     {
-
-        static public string FromEmployee(string department, string FIO, string phone, string updateName)
+        static public string FromIssued(int Id, int Id_employee, int Id_books, string Deadline)
         {
-            DBManager manager = new DBManager();
-            var empl = manager.GetContext().Employees.First(s => s.FIO == updateName);
+            try
+            {
+                DBManager manager = new DBManager();
+                var book = manager.GetContext().IssuedBooks.Find(Id);
 
-            if (department != "Department")
+                book.Id_book = Id_books;
+                book.Id_employee = Id_employee;
+                book.Deadline = System.DateTime.Parse(Deadline);
+
+                //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Employees, updateName), empl);
+                return manager.Update<Issued_book>(book.Id, book);
+            }
+            catch(Exception ex)
+            {
+                return "Не удалось обновить запись. Ошибка: " + ex.Message;
+            }
+        }
+
+        static public string FromEmployee(int Id, string department, string FIO, string phone)
+        {
+            
+
+            try
+            {
+                DBManager manager = new DBManager();
+                var empl = manager.GetContext().Employees.Find(Id);
+
                 empl.Department = department;
-            if (FIO != "FIO")
                 empl.FIO = FIO;
-            if (phone != "Phone")
                 empl.Phone = phone;
 
-            //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Employees, updateName), empl);
-            return manager.Update<Employee>(empl.Id, empl);
+                //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Employees, updateName), empl);
+                return manager.Update<Employee>(empl.Id, empl);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось обновить запись. Ошибка: " + ex.Message;
+            }
         }
 
-        static public string FromBuyOrder(string orderedName, string bookTitle, string updateName)
+        //static public string FromBuyOrder(string orderedName, string bookTitle, string updateName)
+        static public string FromBuyOrder(int Id, int Id_employee, int Id_book)
         {
-            DBManager manager = new DBManager();
-            var idOrderBook = manager.GetContext().Lib.First(s => s.Book_title == updateName).Id;
-            var buyOrder = manager.GetContext().BuyOrders.First(s => s.Id_book == idOrderBook);
-            if (orderedName != "name ordered")
-                buyOrder.Id_employee = manager.GetIdElement(TablesNames.Employees, orderedName);
-            if (bookTitle != "book title")
-                buyOrder.Id_book = idOrderBook;
+            
 
-            //return manager.Update<Buy_Order>(manager.GetIdElement(TablesNames.BuyOrders, updateName), buyOrder);
-            return manager.Update<Buy_Order>(buyOrder.Id, buyOrder);
+            try
+            {
+                DBManager manager = new DBManager();
+                var buyOrder = manager.GetContext().BuyOrders.First(s => s.Id_book == Id);
+                buyOrder.Id_book = Id_book;
+                buyOrder.Id_employee = Id_employee;
+
+                //return manager.Update<Buy_Order>(manager.GetIdElement(TablesNames.BuyOrders, updateName), buyOrder);
+                return manager.Update<Buy_Order>(buyOrder.Id, buyOrder);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось обновить запись. Ошибка: " + ex.Message;
+            }
         }
 
-        static public string FromReadingOrder(string orderedName, string bookTitle, string updateName)
+        static public string FromReadingOrder(int Id, int Id_employee, int Id_book)
         {
-            DBManager manager = new DBManager();
-            int idBook = manager.GetIdElement(TablesNames.Books, updateName);
-            var readingOrder = manager.GetContext().ReadingOrders.First(s => s.Id_book == idBook);
+            try
+            {
+                DBManager manager = new DBManager();
+                var readingOrder = manager.GetContext().ReadingOrders.Find(Id);
 
-            if (orderedName != "name ordered")
-                readingOrder.Id_employee = manager.GetIdElement(TablesNames.Employees, orderedName);
-            if (bookTitle != "book title")
-                readingOrder.Id_book = manager.GetIdElement(TablesNames.Books, bookTitle);
+                readingOrder.Id_employee = Id_employee;
+                readingOrder.Id_book = Id_book;
 
-            return manager.Update<Reading_Order>(readingOrder.Id, readingOrder);
+                return manager.Update<Reading_Order>(readingOrder.Id, readingOrder);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось обновить запись. Ошибка: " + ex.Message;
+            }
         }
 
-        static public string FromBook(string title, string desc, string numCop, string updateName)
+        //TODO: сделать проверку на то что количество всех копий книги при обновлении не будет меньше чем количество книг на руках
+        static public string FromBook(int Id, string title, string desc, string numCop)
         {
-            DBManager manager = new DBManager();
-            var book = manager.GetContext().Lib.First(s => s.Book_title == updateName);
+            
+            try
+            {
+                DBManager manager = new DBManager();
+                var book = manager.GetContext().Lib.Find(Id);
 
-            if (title != "book title")
                 book.Book_title = title;
-            if (desc != "short description")
                 book.Short_description = desc;
-            if (numCop != "number copies")
                 book.Number_copies = Convert.ToInt32(numCop);
 
-            //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Books, updateName), book);
-            return manager.Update<Employee>(book.Id, book);
+                //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Books, updateName), book);
+                return manager.Update<Employee>(book.Id, book);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось обновить запись. Ошибка: " + ex.Message;
+            }
         }
 
     }
@@ -76,111 +118,190 @@ namespace Library.Models
     {
         static public string FromEmployee(string department, string FIO, string phone)
         {
-            DBManager manager = new DBManager();
-            var empl = new Employee();
+            try
+            {
+                DBManager manager = new DBManager();
+                var empl = new Employee();
 
-            if (department != "Department")
                 empl.Department = department;
-            if (FIO != "FIO")
                 empl.FIO = FIO;
-            if (phone != "Phone")
                 empl.Phone = phone;
 
-            return manager.Insert<Employee>(empl);
+                return manager.Insert<Employee>(empl);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось добавить новую запись. Ошибка: " + ex.Message;
+            }
         }
 
-        static public string FromBuyOrder(string orderedName, string bookTitle)
+        static public string FromBuyOrder(int Id_employee, int Id_book)
         {
-            DBManager manager = new DBManager();
-            var buyOrder = new Buy_Order();
-            if (orderedName != "name ordered")
-                buyOrder.Id_employee = manager.GetIdElement(TablesNames.Employees, orderedName);
-            if (bookTitle != "book title")
-                buyOrder.Id_book = manager.GetIdElement(TablesNames.Books, bookTitle);
+            try
+            {
+                DBManager manager = new DBManager();
+                var buyOrder = new Buy_Order();
+                buyOrder.Id_employee = Id_employee;
+                buyOrder.Id_book = Id_book;
 
-            return manager.Insert<Buy_Order>(buyOrder);
+                return manager.Insert<Buy_Order>(buyOrder);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось добавить новую запись. Ошибка: " + ex.Message;
+            }
         }
 
-        static public string FromReadingOrder(string orderedName, string bookTitle)
+        static public string FromReadingOrder(int Id_employee, int Id_book)
         {
-            DBManager manager = new DBManager();
-            var readingOrder = new Reading_Order();
+            try
+            {
+                DBManager manager = new DBManager();
+                var readingOrder = new Reading_Order();
 
-            if (orderedName != "name ordered")
-                readingOrder.Id_employee = manager.GetIdElement(TablesNames.Employees, orderedName);
-            if (bookTitle != "book title")
-                readingOrder.Id_book = manager.GetIdElement(TablesNames.Books, bookTitle);
+                readingOrder.Id_employee = Id_employee;
+                readingOrder.Id_book = Id_book;
 
-            return manager.Insert<Reading_Order>(readingOrder);
+                return manager.Insert<Reading_Order>(readingOrder);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось добавить новую запись. Ошибка: " + ex.Message;
+            }
         }
 
         static public string FromBook(string title, string desc, string numCop)
         {
-            DBManager manager = new DBManager();
-            var book = new Book();
+            try
+            {
+                DBManager manager = new DBManager();
+                var book = new Book();
 
-            if (title != "book title")
                 book.Book_title = title;
-            if (desc != "short description")
                 book.Short_description = desc;
-            if (numCop != "number copies")
                 book.Number_copies = Convert.ToInt32(numCop);
 
-            return manager.Insert<Book>(book);
+                return manager.Insert<Book>(book);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось добавить новую запись. Ошибка: " + ex.Message;
+            }
+        }
+
+        static public string FromIssued(int Id_book, int Id_employee, string Deadline)
+        {
+
+            try
+            {
+                DBManager manager = new DBManager();
+                var book = new Issued_book();
+
+                book.Id_book = Id_book;
+                book.Id_employee = Id_employee;
+                book.Deadline = System.DateTime.Parse(Deadline);
+
+                //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Employees, updateName), empl);
+                return manager.Insert<Issued_book>(book);
+            }
+            catch(Exception ex)
+            {
+                return "Не удалось добавить новую запись. Ошибка: " + ex.Message;
+            }
         }
 
     }
 
     class DeleteHelper
     {
-        static public string FromEmployee(string FIO)
+        static public string FromIssued(int Id)
         {
-            DBManager manager = new DBManager();
-            var empl = manager.GetContext().Employees.FirstOrDefault(s => s.FIO == FIO);
-
-            return manager.Delete<Employee>(empl);
-        }
-
-        static public string FromBuyOrder(string bookTitle)
-        {
-            DBManager manager = new DBManager();
-            var idOrderBook = manager.GetIdElement(TablesNames.Books, bookTitle);
-            var buyOrder = manager.GetContext().BuyOrders.FirstOrDefault(s => s.Id_book== idOrderBook);
-
-            return manager.Delete<Buy_Order>(buyOrder);
-        }
-
-        static public string FromReadingOrder(string ordered, string bookTitle)
-        {
-            DBManager manager = new DBManager();
-            var readingOrder = new Reading_Order();
-
-            Reading_Order order = new Reading_Order();
-            int idBook = manager.GetIdElement(TablesNames.Books, bookTitle);
-            var orders = manager.GetContext().ReadingOrders.Where(s => s.Id_book == idBook);
-            int idOrdered = manager.GetIdElement(TablesNames.Employees, ordered);
-            foreach (var b in orders)
+            try
             {
-                if (b.Id_employee == idOrdered)
-                {
-                    order = b;
-                    break;
-                }
+                DBManager manager = new DBManager();
+                var book = new Issued_book { Id = Id };
+
+                return manager.Delete<Issued_book>(book);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось удалить запись. Ошибка: " + ex.Message;
+            }
+        }
+
+        static public string FromEmployee(int Id)
+        {
+            try
+            {
+                DBManager manager = new DBManager();
+                var empl = manager.GetContext().Employees.Find(Id);
+
+                return manager.Delete<Employee>(empl);
+            }
+            catch(Exception ex)
+            {
+                return "Не удалось удалить запись. Ошибка: " + ex.Message;
+            }
+        }
+
+        static public string FromBuyOrder(int Id)
+        {
+            try
+            {
+                DBManager manager = new DBManager();
+                var buyOrder = manager.GetContext().BuyOrders.Find(Id);
+
+                return manager.Delete<Buy_Order>(buyOrder);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось удалить запись. Ошибка: " + ex.Message;
+            }
+           
+        }
+
+        static public string FromReadingOrder(int Id)
+        {
+            try
+            {
+                DBManager manager = new DBManager();
+                var readingOrder = new Reading_Order();
+
+                Reading_Order order = new Reading_Order { Id = Id };
+
+                return manager.Delete<Reading_Order>(order);
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось удалить запись. Ошибка: " + ex.Message;
             }
 
-            return manager.Delete<Reading_Order>(order);
         }
-
-        static public string FromBook(string title)
+        static public string FromBook(int Id)
         {
-            DBManager manager = new DBManager();
+            try
+            {
+                DBManager manager = new DBManager();
 
-            return manager.Delete<Book>(manager.GetContext().Lib.First(s => s.Book_title == title));
+                return manager.Delete<Book>(manager.GetContext().Lib.Find(Id));
+            }
+            catch (Exception ex)
+            {
+                return "Не удалось удалить запись. Ошибка: " + ex.Message;
+            }
+            
         }
     }
 
     class LibApp
     {
+        public InsertHelper insertHelper = new InsertHelper();
+
+        public UpdateHelper updateHelper = new UpdateHelper();
+
+        public DeleteHelper deleteHelper = new DeleteHelper();
+
+
         static public List<BookForPage> GetListAvailableBooks()
         {
             DBManager manager = new DBManager();
@@ -242,6 +363,80 @@ namespace Library.Models
                     return manager.GetContext().IssuedBooks;
                 default:
                     return manager.GetContext().Employees;
+            }
+        }
+
+        static public string Update(Library.Controllers.HomeController controller)
+        {
+            var tableName = controller.Request.Params["table_name"];
+            switch (tableName)
+            {
+                case "buy":
+                    return UpdateHelper.FromBuyOrder(Convert.ToInt32(controller.Request.Params["Id"]),
+                        Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        Convert.ToInt32(controller.Request.Params["Id_book"]));
+                case "books":
+                    return UpdateHelper.FromBook(Convert.ToInt32(controller.Request.Params["Id"]),
+                        controller.Request.Params["Book_title"],
+                        controller.Request.Params["Short_description"],
+                        controller.Request.Params["Number_copies"]);
+                case "reading":
+                    return UpdateHelper.FromReadingOrder(Convert.ToInt32(controller.Request.Params["Id"]),
+                        Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        Convert.ToInt32(controller.Request.Params["Id_book"]));
+                case "employees":
+                    return UpdateHelper.FromEmployee(Convert.ToInt32(controller.Request.Params["Id"]),
+                        (controller.Request.Params["Department"]),
+                        (controller.Request.Params["FIO"]),
+                        (controller.Request.Params["Phone"]));
+                default:
+                    return UpdateHelper.FromIssued(Convert.ToInt32(controller.Request.Params["Id"]),
+                        Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        Convert.ToInt32(controller.Request.Params["Id_book"]),
+                        controller.Request.Params["Deadline"]);
+            }
+        }
+
+        static public string Insert(Library.Controllers.HomeController controller)
+        {
+            var tableName = controller.Request.Params["table"];
+            switch (tableName)
+            {
+                case "buy":
+                    return InsertHelper.FromBuyOrder(Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        Convert.ToInt32(controller.Request.Params["Id_book"]));
+                case "books":
+                    return InsertHelper.FromBook(controller.Request.Params["Book_title"],
+                        controller.Request.Params["Short_description"],
+                        controller.Request.Params["Number_copies"]);
+                case "reading":
+                    return InsertHelper.FromReadingOrder(Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        Convert.ToInt32(controller.Request.Params["Id_book"]));
+                case "employees":
+                    return InsertHelper.FromEmployee(controller.Request.Params["Department"],
+                        controller.Request.Params["FIO"],
+                        controller.Request.Params["Phone"]);
+                default:
+                    return InsertHelper.FromIssued(Convert.ToInt32(controller.Request.Params["Id_book"]),
+                        Convert.ToInt32(controller.Request.Params["Id_employee"]),
+                        controller.Request.Params["Deadline"]);
+            }
+        }
+
+        static public string Delete(Library.Controllers.HomeController controller, string table, int id)
+        {
+            switch (table)
+            {
+                case "buy":
+                    return DeleteHelper.FromBuyOrder(id);
+                case "books":
+                    return DeleteHelper.FromBook(id);
+                case "reading":
+                    return DeleteHelper.FromReadingOrder(id);
+                case "employees":
+                    return DeleteHelper.FromEmployee(id);
+                default:
+                    return DeleteHelper.FromIssued(id);
             }
         }
 
