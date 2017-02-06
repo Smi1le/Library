@@ -25,7 +25,11 @@
                     <div><p>Department</p></div>
                     <div class="update_form_cell"><input type="text" id="txt" name="Department" value="@ViewBag.Element.Department" /> </div>
                 </div>
-                
+                <div class="update_form">
+                    <div><p>Read Books</p></div>
+                    <div class="update_form_cell"><input type="text" id="txt" name="Read_books" value="@ViewBag.Element.Read_books" /> </div>
+                </div>
+
             }
             @if (ViewBag.TableName == "buy")
             {
@@ -72,6 +76,10 @@
                 <div class="update_form">
                     <div><p>Number copies</p></div>
                     <div class="update_form_cell"><input type="text" id="txt" name="Number_copies" value="@ViewBag.Element.Number_copies" /> </div>
+                </div>
+                <div class="update_form">
+                    <div><p>Number copies</p></div>
+                    <div class="update_form_cell"><input type="text" id="txt" name="How_many" value="@ViewBag.Element.How_many_times" /> </div>
                 </div>
             }
             @if (ViewBag.TableName == "issued")

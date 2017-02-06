@@ -25,8 +25,9 @@
                         <td><p>@element.Book_title</p></td>
                         <td><p>@element.Short_description</p></td>
                         <td><p>@element.Number_copies</p></td>
+                        <td><p>@element.How_many_times</p></td>
                         <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href='/Home/Update?table=books&Id=@element.Id'"/></td>
-                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id&returnPage=WorkWithDB'"/></td>
                     </tr>
                 }
             }
@@ -39,7 +40,7 @@
                         <td><p>@element.Id_employee</p></td>
                         <td><p>@element.Id_book</p></td>
                         <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=buy&Id=@element.Id'"/></td>
-                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=buy&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=buy&Id=@element.Id&returnPage=WorkWithDB'"/></td>
                     </tr>
                 }
             }
@@ -52,7 +53,7 @@
                         <td><p>@element.Id_book</p></td>
                         <td><p>@element.Id_employee</p></td>
                         <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=reading&Id=@element.Id'"/></td>
-                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=reading&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=reading&Id=@element.Id&returnPage=WorkWithDB'"/></td>
                     </tr>
                 }
             }
@@ -66,7 +67,7 @@
                         <td><p>@element.Id_employee</p></td>
                         <td><p>@element.Deadline</p></td>
                         <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=issued&Id=@element.Id'"/></td>
-                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@element.Id&returnPage=WorkWithDB'"/></td>
                     </tr>
                 }
             }
@@ -79,8 +80,9 @@
                         <td><p>@element.FIO</p></td>
                         <td><p>@element.Phone</p></td>
                         <td><p>@element.Department</p></td>
+                        <td><p>@element.Read_books</p></td>
                         <td><input type="button" value="Изменить" name="update" class="update_button" onclick="location.href = '/Home/Update?table=employees&Id=@element.Id'" /></td>
-                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=employees&Id=@element.Id'"/></td>
+                        <td><input type="button" value="Удалить" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=employees&Id=@element.Id&returnPage=WorkWithDB'"/></td>
                     </tr>
                 }
             }
@@ -98,6 +100,9 @@
                 </div>
                 <div class="add_cell">
                     <input type="text" value="Number copies" name="Number_copies" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="How many reads" name="How_many" />
                 </div>
                 <div class="add_button">
                     <input type="submit" value="Добавить" name="add_record"/>
@@ -117,6 +122,9 @@
                 </div>
                 <div class="add_cell">
                     <input type="text" value="Department" name="Department" />
+                </div>
+                <div class="add_cell">
+                    <input type="text" value="Read books" name="Read_books" />
                 </div>
                 <div class="add_button">
                     <input type="submit" value="Добавить" name="add_record" />

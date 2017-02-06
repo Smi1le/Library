@@ -273,6 +273,8 @@
     <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\Home\WorkWithBD.cshtml" />
     <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\Home\Return.cshtml" />
+    <Content Include="Views\Home\Rating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

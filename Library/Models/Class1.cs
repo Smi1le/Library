@@ -18,6 +18,8 @@ namespace Library.Models
 
         public string Department { get; set; }
 
+        public int Read_books { get; set; }
+
     }
 
     public class BookForPage
@@ -77,6 +79,16 @@ namespace Library.Models
         public string Short_description { get; set; }
 
         public int Number_copies { get; set; }
+
+        public int How_many_times { get; set; }
+    }
+
+    public class Return_Book
+    {
+        public int Id { get; set; }
+        public string Book_title { get; set; }
+        public string FIO_employee { get; set; }
+        public DateTime Deadline { get; set; }
     }
 
     public class LibraryContext: DbContext

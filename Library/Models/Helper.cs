@@ -29,7 +29,7 @@ namespace Library.Models
             }
         }
 
-        static public string FromEmployee(int Id, string department, string FIO, string phone)
+        static public string FromEmployee(int Id, string department, string FIO, string phone, int Read_books)
         {
             
 
@@ -41,6 +41,7 @@ namespace Library.Models
                 empl.Department = department;
                 empl.FIO = FIO;
                 empl.Phone = phone;
+                empl.Read_books = Read_books;
 
                 //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Employees, updateName), empl);
                 return manager.Update<Employee>(empl.Id, empl);
@@ -91,7 +92,7 @@ namespace Library.Models
         }
 
         //TODO: сделать проверку на то что количество всех копий книги при обновлении не будет меньше чем количество книг на руках
-        static public string FromBook(int Id, string title, string desc, string numCop)
+        static public string FromBook(int Id, string title, string desc, string numCop, string howMany)
         {
             
             try
@@ -102,6 +103,7 @@ namespace Library.Models
                 book.Book_title = title;
                 book.Short_description = desc;
                 book.Number_copies = Convert.ToInt32(numCop);
+                book.How_many_times = Convert.ToInt32(howMany);
 
                 //return manager.Update<Employee>(manager.GetIdElement(TablesNames.Books, updateName), book);
                 return manager.Update<Employee>(book.Id, book);
@@ -116,7 +118,7 @@ namespace Library.Models
 
     class InsertHelper
     {
-        static public string FromEmployee(string department, string FIO, string phone)
+        static public string FromEmployee(string department, string FIO, string phone, string read_books)
         {
             try
             {
@@ -126,6 +128,7 @@ namespace Library.Models
                 empl.Department = department;
                 empl.FIO = FIO;
                 empl.Phone = phone;
+                empl.Read_books = Convert.ToInt32(read_books);
 
                 return manager.Insert<Employee>(empl);
             }
@@ -170,7 +173,7 @@ namespace Library.Models
             }
         }
 
-        static public string FromBook(string title, string desc, string numCop)
+        static public string FromBook(string title, string desc, string numCop, string howMany)
         {
             try
             {
@@ -180,6 +183,7 @@ namespace Library.Models
                 book.Book_title = title;
                 book.Short_description = desc;
                 book.Number_copies = Convert.ToInt32(numCop);
+                book.How_many_times = Convert.ToInt32(howMany);
 
                 return manager.Insert<Book>(book);
             }
@@ -336,7 +340,7 @@ namespace Library.Models
             switch (tableName)
             {
                 case "books":
-                    return new List<string> { "Id", "Book title", "Short description", "Number copies"};
+                    return new List<string> { "Id", "Book title", "Short description", "Number copies", "How many times" };
                 case "buy":
                     return new List<string> { "Id", "Id employee", "Id book"};
                 case "reading":
@@ -344,7 +348,7 @@ namespace Library.Models
                 case "issued":
                     return new List<string> { "Id", "Id book", "Id employee", "Deadline" };
                 default:
-                    return new List<string> { "Id", "FIO", "Phone", "Department" };
+                    return new List<string> { "Id", "FIO", "Phone", "Department", "Read_books" };
             }
         }
 
@@ -378,7 +382,8 @@ namespace Library.Models
                     return UpdateHelper.FromBook(Convert.ToInt32(controller.Request.Params["Id"]),
                         controller.Request.Params["Book_title"],
                         controller.Request.Params["Short_description"],
-                        controller.Request.Params["Number_copies"]);
+                        controller.Request.Params["Number_copies"],
+                        controller.Request.Params["How_many"]);
                 case "reading":
                     return UpdateHelper.FromReadingOrder(Convert.ToInt32(controller.Request.Params["Id"]),
                         Convert.ToInt32(controller.Request.Params["Id_employee"]),
@@ -387,7 +392,8 @@ namespace Library.Models
                     return UpdateHelper.FromEmployee(Convert.ToInt32(controller.Request.Params["Id"]),
                         (controller.Request.Params["Department"]),
                         (controller.Request.Params["FIO"]),
-                        (controller.Request.Params["Phone"]));
+                        (controller.Request.Params["Phone"]),
+                        Convert.ToInt32(controller.Request.Params["Read_books"]));
                 default:
                     return UpdateHelper.FromIssued(Convert.ToInt32(controller.Request.Params["Id"]),
                         Convert.ToInt32(controller.Request.Params["Id_employee"]),
@@ -406,14 +412,16 @@ namespace Library.Models
                 case "books":
                     return InsertHelper.FromBook(controller.Request.Params["Book_title"],
                         controller.Request.Params["Short_description"],
-                        controller.Request.Params["Number_copies"]);
+                        controller.Request.Params["Number_copies"],
+                        controller.Request.Params["How_many"]);
                 case "reading":
                     return InsertHelper.FromReadingOrder(Convert.ToInt32(controller.Request.Params["Id_employee"]),
                         Convert.ToInt32(controller.Request.Params["Id_book"]));
                 case "employees":
                     return InsertHelper.FromEmployee(controller.Request.Params["Department"],
                         controller.Request.Params["FIO"],
-                        controller.Request.Params["Phone"]);
+                        controller.Request.Params["Phone"],
+                        controller.Request.Params["Read_books"]);
                 default:
                     return InsertHelper.FromIssued(Convert.ToInt32(controller.Request.Params["Id_book"]),
                         Convert.ToInt32(controller.Request.Params["Id_employee"]),
@@ -436,6 +444,30 @@ namespace Library.Models
                 default:
                     return DeleteHelper.FromIssued(id);
             }
+        }
+
+        static public List<Return_Book> GetListReturnBooks()
+        {
+            DBManager manager = new DBManager();
+            var issued = manager.GetContext().IssuedBooks;
+            //var lib = manager.GetContext().Lib;
+            //var employee = manager.GetContext().Employees;
+            List<Return_Book> set = new List<Return_Book>();
+            foreach(var issBook in issued)
+            {
+                DBManager man2 = new DBManager();
+                Return_Book book = new Return_Book
+                {
+                    Id = issBook.Id,
+                    Book_title = man2.GetContext().Lib.Find(issBook.Id_book).Book_title,
+                    FIO_employee = man2.GetContext().Employees.Find(issBook.Id_employee).FIO,
+                    Deadline = issBook.Deadline
+                };
+
+                set.Add(book);
+                
+            }
+            return set;
         }
 
     }
