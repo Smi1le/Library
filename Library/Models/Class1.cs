@@ -91,6 +91,13 @@ namespace Library.Models
         public DateTime Deadline { get; set; }
     }
 
+    public class Orders
+    {
+        public int Id { get; set; }
+        public string Book_title { get; set; }
+        public string Employee { get; set; }
+    }
+
     public class LibraryContext: DbContext
     {
 

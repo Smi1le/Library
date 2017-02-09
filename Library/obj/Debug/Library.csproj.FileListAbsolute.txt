@@ -185,6 +185,6 @@ F:\Library\Library\bin\ru\Microsoft.Owin.Security.Facebook.resources.dll
 F:\Library\Library\bin\ru\Microsoft.Owin.Security.Google.resources.dll
 F:\Library\Library\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 F:\Library\Library\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-F:\Library\Library\obj\Debug\Library.csprojResolveAssemblyReference.cache
 F:\Library\Library\obj\Debug\Library.dll
 F:\Library\Library\obj\Debug\Library.pdb
+F:\Library\Library\obj\Debug\Library.csprojResolveAssemblyReference.cache

@@ -275,6 +275,10 @@
     <Content Include="Views\Home\View.cshtml" />
     <Content Include="Views\Home\Return.cshtml" />
     <Content Include="Views\Home\Rating.cshtml" />
+    <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\AddBook.cshtml" />
+    <Content Include="Views\Home\Orders.cshtml" />
+    <Content Include="Views\Home\UpdateToOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

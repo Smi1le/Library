@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Библиотека</title>
+    <title>@ViewBag.Title | Библиотека</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style type="text/css">
@@ -39,7 +39,7 @@
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <!--@Html.Partial("_LoginPartial")-->
             </div>
         </div>
 
@@ -56,7 +56,15 @@
                         <li><a href="/Home/Buy">Покупка книги</a></li>
                         <li><a href="/Home/Read">Читать книгу</a></li>
                         <li><a href="/Home/Return">Вернуть книгу в библиотеку</a></li>
-                        <!--<li><a href="/Home/Read">Оформить заказ на прочтение книги</a></li>-->
+                        <li><a href="/Home/Add">Добавить книгу</a></li>
+                        <li><a href="/Home/WorkWithBD?table=books&mode=a">Список книг</a></li>
+                    </ul>
+                </div>
+                <div id="box">
+                    <h3><span>Заказы</span></h3>
+                    <ul>
+                        <li><a href="/Home/Orders?type=buy">Покупка</a></li>
+                        <li><a href="/Home/Orders?type=reading">Чтение</a></li>
                     </ul>
                 </div>
                 <div id="box">

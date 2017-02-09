@@ -470,6 +470,68 @@ namespace Library.Models
             return set;
         }
 
+        static public List<Orders> GetListOrders(string type)
+        {
+            DBManager manager = new DBManager();
+            List<Orders> orders = new List<Orders>();
+            if (type == "buy")
+            {
+                foreach(var order in manager.GetContext().BuyOrders)
+                {
+                    DBManager man2 = new DBManager();
+                    orders.Add(new Orders
+                    {
+                        Id = order.Id,
+                        Book_title = man2.GetContext().Lib.Find(order.Id_book).Book_title,
+                        Employee = man2.GetContext().Employees.Find(order.Id_employee).FIO
+                    });
+                }
+            }
+            else if (type == "reading")
+            {
+                foreach (var order in manager.GetContext().ReadingOrders)
+                {
+                    DBManager man2 = new DBManager();
+                    orders.Add(new Orders
+                    {
+                        Id = order.Id,
+                        Book_title = man2.GetContext().Lib.Find(order.Id_book).Book_title,
+                        Employee = man2.GetContext().Employees.Find(order.Id_employee).FIO
+                    });
+                }
+            }
+
+            return orders;
+        }
+
+        static public bool DelInOrders(string mode, string id, string type)
+        {
+            try
+            {
+                DBManager manager = new DBManager();
+
+                if (type == "buy")
+                {
+                    var context = manager.GetContext().BuyOrders;
+                    var order = context.Find(id);
+                    if (mode == "update")
+                    {
+                        //UpdateHelper.FromBuyOrder(order.Id)
+                    }
+                }
+                else if (type == "read")
+                {
+
+                }
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 
 }

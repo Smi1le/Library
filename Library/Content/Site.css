@@ -1,6 +1,13 @@
 ﻿body {
+    background-image: url('../images/back-index.jpg');
     padding-top: 50px;
     padding-bottom: 20px;
+}
+
+.image {
+    background-image: url(~/Content));
+    width: 50px; /* ширина */
+    height: 50px; /* высота */
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -147,6 +154,7 @@ td{
     padding-top: 5px;
     display:table-cell;
 }
+
 
 
 
