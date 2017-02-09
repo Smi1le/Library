@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Таблица заказов</h3>
+<form method="post" action="">
+    <table id="single">
+        <tr>
+            @foreach (var el in ViewBag.NamesList)
+            {
+                <td>@el</td>;
+            }
+            <td></td>
+            <td></td>
+        </tr>
+        @foreach (var element in ViewBag.Table)
+        {
+            <tr>
+                <td><p>@element.Book_title</p></td>
+                <td><p>@element.Employee</p></td>
+                <td><a href="/Home/UpdateToOrders?mode=update&id=@element.Id&type=@ViewBag.Type">Обновить</a></td>
+                <td><a href="/Home/UpdateToOrders?mode=delete&id=@element.Id&type=@ViewBag.Type">Удалить</a></td>
+            </tr>
+        }
+    </table>
+</form>
+

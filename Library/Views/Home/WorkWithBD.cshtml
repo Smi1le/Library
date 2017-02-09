@@ -88,100 +88,103 @@
             }
         </table>
 
-        @if (ViewBag.TableName == "books")
+        @if (ViewBag.Mode == null)
         {
-            <div class="add_form">
-                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
-                <div class="add_cell">
-                    <input type="text" value="Book title" name="Book_title" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="Short description" name="Short_description" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="Number copies" name="Number_copies" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="How many reads" name="How_many" />
-                </div>
-                <div class="add_button">
-                    <input type="submit" value="Добавить" name="add_record"/>
-                </div>
+            if (ViewBag.TableName == "books")
+            {
+                <div class="add_form">
+                    <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                    <div class="add_cell">
+                        <input type="text" value="Book title" name="Book_title" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Short description" name="Short_description" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Number copies" name="Number_copies" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="How many reads" name="How_many" />
+                    </div>
+                    <div class="add_button">
+                        <input type="submit" value="Добавить" name="add_record"/>
+                    </div>
 
-            </div>
-        }
-        @if (ViewBag.TableName == "employees")
-        {
-            <div class="add_form">
-                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
-                <div class="add_cell">
-                    <input type="text" value="FIO" name="FIO" />
                 </div>
-                <div class="add_cell">
-                    <input type="text" value="Phone" name="Phone" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="Department" name="Department" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="Read books" name="Read_books" />
-                </div>
-                <div class="add_button">
-                    <input type="submit" value="Добавить" name="add_record" />
-                </div>
+            }
+            if (ViewBag.TableName == "employees")
+            {
+                <div class="add_form">
+                    <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                    <div class="add_cell">
+                        <input type="text" value="FIO" name="FIO" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Phone" name="Phone" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Department" name="Department" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Read books" name="Read_books" />
+                    </div>
+                    <div class="add_button">
+                        <input type="submit" value="Добавить" name="add_record" />
+                    </div>
 
-            </div>
-        }
-        @if (ViewBag.TableName == "issued")
-        {
-            <div class="add_form">
-                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
-                <div class="add_cell">
-                    <input type="text" value="Id_book" name="Id_book" />
                 </div>
-                <div class="add_cell">
-                    <input type="text" value="Id_employee" name="Id_employee" />
-                </div>
-                <div class="add_cell">
-                    <input type="text" value="Deadline" name="Deadline" />
-                </div>
-                <div class="add_button">
-                    <input type="submit" value="Добавить" name="add_record" />
-                </div>
+            }
+            if (ViewBag.TableName == "issued")
+            {
+                <div class="add_form">
+                    <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_book" name="Id_book" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_employee" name="Id_employee" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Deadline" name="Deadline" />
+                    </div>
+                    <div class="add_button">
+                        <input type="submit" value="Добавить" name="add_record" />
+                    </div>
 
-            </div>
-        }
-        @if (ViewBag.TableName == "reading")
-        {
-            <div class="add_form">
-                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
-                <div class="add_cell">
-                    <input type="text" value="Id_book" name="Id_book" />
                 </div>
-                <div class="add_cell">
-                    <input type="text" value="Id_employee" name="Id_employee" />
-                </div>
-                <div class="add_button">
-                    <input type="submit" value="Добавить" name="add_record" />
-                </div>
+            }
+            if (ViewBag.TableName == "reading")
+            {
+                <div class="add_form">
+                    <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_book" name="Id_book" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_employee" name="Id_employee" />
+                    </div>
+                    <div class="add_button">
+                        <input type="submit" value="Добавить" name="add_record" />
+                    </div>
 
-            </div>
-        }
-        @if (ViewBag.TableName == "buy")
-        {
-            <div class="add_form">
-                <div style="padding-left:10px;"><p>Добавить запись:</p></div>
-                <div class="add_cell">
-                    <input type="text" value="Id_employee" name="Id_employee" />
                 </div>
-                <div class="add_cell">
-                    <input type="text" value="Id_book" name="Id_book"/>
-                </div>
-                <div class="add_button">
-                    <input type="submit" value="Добавить" name="add_record" />
-                </div>
+            }
+            if (ViewBag.TableName == "buy")
+            {
+                <div class="add_form">
+                    <div style="padding-left:10px;"><p>Добавить запись:</p></div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_employee" name="Id_employee" />
+                    </div>
+                    <div class="add_cell">
+                        <input type="text" value="Id_book" name="Id_book"/>
+                    </div>
+                    <div class="add_button">
+                        <input type="submit" value="Добавить" name="add_record" />
+                    </div>
 
-            </div>
+                </div>
+            }
         }
         <!--<div class="add_form">
             <div style="padding-left:10px;"><p>Добавить запись:</p></div>

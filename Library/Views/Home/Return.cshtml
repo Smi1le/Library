@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Return";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Книги на руках</h3>
+    <table id="single">
+        <tr>
+            <td><p>Название книги</p></td>
+            <td><p>У кого на руках</p></td>
+            <td>Срок возврата</td>
+            <td></td>
+        </tr>
+        @foreach (var b in ViewBag.Table)
+        {
+            <tr>
+                <td><p>@b.Book_title</p></td>
+                <td><p>@b.FIO_employee</p></td>
+                <td><p>@b.Deadline</p></td>
+                <td><input type="button" value="Вернуть" name="return" class="delete_button" onclick="location.href = '/Home/Delete?table=issued&Id=@b.Id&returnPage=Return'" /></td>
+            </tr>
+        }
+    </table>
+</div>
+

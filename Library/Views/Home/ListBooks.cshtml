@@ -8,19 +8,27 @@
     <h3></h3>
     <table id="single">
         <tr>
-            <td><p>Название книги</p></td>
-            <td><p>Краткое описание</p></td>
-            <td><p>Количество книг в наличии</p></td>
+            @foreach (var el in ViewBag.NamesList)
+            {
+                <td>@el</td>;
+            }
+            <td></td>
             <td></td>
         </tr>
-        @foreach (var b in ViewBag.Lib)
+        @if (ViewBag.TableName == "books")
         {
-            <tr>
-                <td><p>@b.Book_title</p></td>
-                <td><p>@b.Description</p></td>
-                <td><p>@b.Number_copies_on_hands</p></td>
-                <td><a href="@b">Прочитать</a></td>
-            </tr>
+            foreach (var element in ViewBag.Table)
+            {
+                <tr>
+                    <td><p>@element.Id</p></td>
+                    <td><p>@element.Book_title</p></td>
+                    <td><p>@element.Short_description</p></td>
+                    <td><p>@element.Number_copies</p></td>
+                    <td><p>@element.How_many_times</p></td>
+                    <td><input type="button" value="Изменить описание" name="update" class="update_button" onclick="location.href='/Home/Update?table=books&Id=@element.Id'" /></td>
+                    <td><input type="button" value="Удалить книгу" name="delete" class="delete_button" onclick="location.href = '/Home/Delete?table=books&Id=@element.Id&returnPage=WorkWithDB'" /></td>
+                </tr>
+            }
         }
     </table>
 </div>

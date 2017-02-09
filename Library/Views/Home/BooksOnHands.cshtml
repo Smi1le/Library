@@ -14,10 +14,13 @@
         </tr>
         @foreach (var b in ViewBag.Lib)
         {
-            <tr>
-                <td><p>@b.Book_title</p></td>
-                <td><p>@b.Number_copies_on_hands</p></td>
-            </tr>
+            if (b.Number_copies_on_hands > 0)
+            {
+                <tr>
+                    <td><p>@b.Book_title</p></td>
+                    <td><p>@b.Number_copies_on_hands</p></td>
+                </tr>
+            }
         }
     </table>
 </div>

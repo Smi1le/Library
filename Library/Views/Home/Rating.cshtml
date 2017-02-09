@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Рейтинг";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Рейтинг</h3>
+    <form method="post" action="">
+        <table>
+            <tr>
+                <td><p>Выберите категорию</p></td>
+                <td>
+                    <select name="selection">
+                        <option>Работники</option>
+                        <option>Книги</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
+        </table>
+        @if (ViewBag.Type != null)
+        {
+            <table>
+                <tr><td><p>Результаты</p></td></tr>
+                @if (ViewBag.Type == "Работники")
+                {
+                    <tr>
+                        <td>Имя работника</td>
+                        <td>Количество прочтеных им книг</td>
+                    </tr>
+                    foreach (var b in ViewBag.Table)
+                    {
+                        <tr>
+                            <td>@b.FIO</td>
+                            <td>@b.Read_books</td>
+                        </tr>
+                    }
+                }
+                @if (ViewBag.Type == "Книги")
+                {
+                    <tr>
+                        <td>Название книги</td>
+                        <td>Сколько раз прочитали</td>
+                    </tr>
+                    foreach (var b in ViewBag.Table)
+                    {
+                        <tr>
+                            <td>@b.Book_title</td>
+                            <td>@b.How_many_times</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    </form>
+</div>
+
+<!--<div>
+    <h3>Посмотреть рейтинг</h3>
+    <form method="post" action="">
+        <div class="update_form">
+            <div><p>Выберите категорию</p></div>
+        </div>
+        <div>
+            <select name="selection">
+                <option>Работники</option>
+                <option>Книги</option>
+            </select>
+        </div>
+        <div><input type="button" name="test" value="Жмакни меня" /></div>
+    </form>
+</div>-->
+

@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <form method="post" action="">
+        @if (ViewBag.Type == "buy")
+        {
+            <table>
+                <tr>
+                    <td>
+                        <div><p>Имя работника</p></div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" name="selection" value="@ViewBag.Employee" list="employees"/>
+                            <datalist id="employees">
+                                @foreach(var el in ViewBag.ListEmployees)
+                                {
+                                    <option>@el</option>
+                                }
+                            </datalist>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div><p>Название книги</p></div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" name="new_name" value="@ViewBag.BookName" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div><p>Краткое описание</p></div>
+                    </td>
+                    <td>
+                        <div>
+                            <input type="text" name="desc" value="@ViewBag.Short_desc" />
+                        </div>
+                    </td>
+                </tr>
+                <tr><td></td><td>
+                    <input type="submit" value="Отправить"/>
+                    </td></tr>
+            </table>
+        }
+        @if (ViewBag.Type == "reading")
+        {
+            <table>
+                <tr>
+                    <td>
+                        <div><p>Имя работника</p></div>
+                    </td>
+                    <td>
+                        <div>
+                            <div>
+                                <input type="text" name="selection" value="@ViewBag.Employee" list="@ViewBag.ListEmployees" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div><p>Название книги</p></div>
+                    </td>
+                    <td>
+                        <div>
+                            <select name="new_name">
+                                @foreach (var el in ViewBag.Books)
+                                {
+                                    <option>@el.Book_title</option>
+                                }
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Отправить" />
+                    </td>
+                </tr>
+            </table>
+        }
+    </form>
+</div>
+

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Добавление книги в библиотеку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<form method="post" action="">
+    <div id="message"><p>@ViewBag.Message</p></div>
+    <h2>Добавить книгу в библиотеку</h2>
+    <div class="center-block">
+        <table id="single">
+            <tr>
+                <td>Название книги</td>
+                <td>Количество копий</td>
+                <td></td>
+            </tr>
+            @foreach (var element in ViewBag.Table)
+            {
+                <tr>
+                    <td><p>@element.Book_title</p></td>
+                    <td><p>@element.Number_copies</p></td>
+                    <td><a href="/Home/AddBook?id=@element.Id&type=add">Добавить</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        <h3>Добавить новую книгу:</h3>
+        
+    </div>
+    <!--<div class="update_form">
+        <div class="update_form_cell">Название книги</div>
+        <div class="update_form_cell">Краткое описание</div>
+    </div>-->
+    <div class="update_form">
+        <div class="update_form_cell"><input type="text" name="name_new_book" placeholder="Название книги"/></div>
+        <div class="update_form_cell"><input type="text" name="desc_new_book" placeholder="Краткое описание книги"/></div>
+        <div class="update_form_cell"><input type="submit" name="add" value="Добавить"/></div>
+    </div>
+
+</form>
+
+
